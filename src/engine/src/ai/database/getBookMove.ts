@@ -1,6 +1,6 @@
 import { Board } from "../../../types";
 import getBoardHash from "../boardHash";
-import { bookMap } from "./map";
+import bookMap from "./map.json";
 
 export function getBookMove(board: Board) {
   // If it's the starting position, we always want either e4, d4 just because these are generally considered the best moves
@@ -12,6 +12,7 @@ export function getBookMove(board: Board) {
   if (boardHash === startBoardHash) return Math.random() > 0.5 ? "e2e4" : "d2d4";
 
   // Get moves from the database
+  // @ts-ignore
   const moves = bookMap[boardHash];
 
   // If there are no moves, return null
