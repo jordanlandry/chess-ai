@@ -1,0 +1,180 @@
+@import "../../variables.scss";
+
+.board-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+
+  // This is so I can vertically center the board
+  height: 100vh;
+
+  .board {
+    position: relative;
+
+    button {
+      position: absolute;
+
+      top: calc(#{$square-size} * 8 + 10px);
+      padding: 10px;
+      background-color: $white;
+
+      transition: background-color, color 0.2s;
+
+      &:hover {
+        background-color: $best;
+        color: $white;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    // Since the button is a child of the board when it is flipped, we need to flip it again so it doesn't get flipped
+    &[data-flipped="true"] {
+      button {
+        top: -10px;
+
+        transform: translateY(-100%) rotate(180deg);
+      }
+    }
+  }
+}
+
+.piece {
+  cursor: grab;
+
+  // &[data-flipped="true"] {
+  //   transform: rotate(180deg);
+  // }
+}
+
+.board {
+  display: grid;
+
+  width: $board-size;
+  height: $board-size;
+
+  grid-template-columns: repeat(8, 1fr);
+
+  place-items: center;
+
+  &[data-flipped="true"] {
+    transform: rotate(180deg);
+
+    .piece {
+      transform: rotate(180deg);
+    }
+  }
+
+  .square {
+    width: $square-size;
+    height: $square-size;
+
+    position: relative;
+
+    &__selected {
+      background-color: $selected-square;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__available {
+      width: 30%;
+      height: 30%;
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      background-color: $available-square;
+      border-radius: 50%;
+    }
+
+    &__capture {
+      width: 75%;
+      height: 75%;
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      border: calc(#{$square-size} / 16) solid $available-capture;
+      border-radius: 50%;
+
+      z-index: 3;
+    }
+
+    &__check {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+
+      top: 0;
+      left: 0;
+      background-color: $check-square;
+
+      // I want this to be under the piece
+      z-index: 1;
+    }
+
+    &__prev-move {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+
+      top: 0;
+      left: 0;
+      background-color: $selected-square;
+
+      // I want this to be under the piece
+      z-index: 1;
+    }
+
+    .piece {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 2;
+    }
+
+    &[data-hovered="true"] {
+      $outline-color: rgba(255, 255, 255, 0.8);
+      $outline-width: calc(#{$square-size} / 20);
+
+      -webkit-box-shadow: inset 0 0 0 $outline-width $outline-color;
+      -moz-box-shadow: inset 0 0 0 $outline-width $outline-color;
+      box-shadow: inset 0 0 0 $outline-width $outline-color;
+    }
+  }
+
+  margin: auto;
+}
+
+.promotion-piece {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.promotion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .promotion-piece {
+    width: $square-size;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  background-color: $white;
+}

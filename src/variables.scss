@@ -1,0 +1,55 @@
+$square-size: min(10vw, 10vh);
+$board-size: calc(8 * #{$square-size});
+
+$white: rgb(248, 248, 248);
+$grey: rgb(70, 70, 70);
+$black: rgb(40, 40, 40);
+
+// The amount of space between the board and the other components like the eval bar and move section
+$board-margin: 12px;
+
+// Additional square colors for highlighting
+$selected-square: rgba(255, 255, 0, 0.5);
+$available-square: rgba(0, 0, 0, 0.15);
+$available-capture: rgba(255, 0, 0, 0.3);
+$check-square: rgba(255, 0, 0, 0.3);
+
+// Move evaluation colors
+$book: rgb(166, 110, 70);
+$blunder: rgb(255, 75, 75);
+$mistake: rgb(255, 162, 0);
+$inaccuracy: rgb(255, 255, 0);
+$good: rgb(180, 255, 180);
+$excellent: rgb(28, 191, 53);
+$best: rgb(0, 128, 0);
+$great: rgb(0, 53, 128);
+$brilliant: rgb(0, 213, 255);
+
+@mixin cool-scrollbar {
+  $scrollbar-width: 11px;
+
+  &::-webkit-scrollbar {
+    width: $scrollbar-width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: lighten($black, 5%);
+    border-radius: $scrollbar-width;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $black;
+    border-radius: $scrollbar-width;
+
+    transition: 0.2s;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: darken($black, 2%);
+  }
+}
+
+:export {
+  squareSize: $square-size;
+  boardSize: $board-size;
+}

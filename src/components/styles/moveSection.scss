@@ -1,0 +1,227 @@
+@import "../../variables.scss";
+
+$section-padding: 24px;
+
+.move-section {
+  h2 {
+    margin-bottom: 0; // Remove margin to let the gap handle it
+    font-size: 2rem;
+  }
+
+  // Position absolute to keep the board centered
+  position: absolute;
+  display: flex;
+
+  gap: 25px;
+
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 0 $section-padding;
+
+  // Needs to go to the right of the board
+  // To calculate this I need half the window size + half the board size
+  left: calc(50vw + #{$board-size / 2});
+
+  margin-left: $board-margin;
+  height: $board-size;
+
+  background-color: $grey;
+  color: white;
+}
+
+.move-list {
+  margin-top: 25px;
+  overflow-y: auto;
+
+  @include cool-scrollbar;
+
+  .move-line {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 15px;
+    font-size: 0.8rem;
+
+    margin-bottom: 16px;
+  }
+
+  height: fit-content;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 2px;
+
+  button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    width: 100%;
+
+    // Center the text with the icon
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    background-color: $black;
+    color: $white;
+
+    font-size: 1.1rem;
+
+    padding: 6px;
+
+    transition: 0.2s;
+    width: 25%;
+
+    &:hover {
+      background-color: darken($black, 33%);
+    }
+
+    &[data-side="right"] {
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+.resign-button-wrapper {
+  background-color: $blunder;
+
+  // Prevent the button from shrinking
+  flex-shrink: 0;
+
+  height: min(calc(#{$square-size} * 0.6), 50px);
+
+  // Unstyle the default button
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  // I want the button to take up the whole width (including the padding)
+  // To keep it centered I need to add a negative margin
+  width: calc(100% + #{$section-padding * 2});
+  margin-left: calc(-1 * #{$section-padding});
+
+  font-size: 1.2rem;
+  transition: 0.2s;
+  margin-top: auto;
+
+  // For the resign confirmation buttons
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    transition: 0.2s;
+    font-size: inherit;
+    height: 100%;
+    width: 100%;
+  }
+
+  .resign-button {
+    color: $white;
+    font-size: inherit;
+
+    &:hover {
+      background-color: $mistake;
+    }
+
+    &:active {
+      background-color: darken($blunder, 33%);
+    }
+  }
+
+  .resign-button-new {
+    background-color: $best;
+    color: $white;
+
+    &:hover {
+      background-color: darken($best, 5%);
+    }
+
+    &:active {
+      background-color: lighten($best, 10%);
+    }
+  }
+
+  .resign-cancel {
+    background-color: $white;
+
+    &:hover {
+      background-color: darken($white, 33%);
+    }
+
+    &:active {
+      background-color: lighten($blunder, 33%);
+    }
+  }
+
+  .resign-confirm {
+    color: $white;
+
+    &:hover {
+      background-color: $mistake;
+    }
+
+    &:active {
+      background-color: darken($blunder, 33%);
+    }
+  }
+}
+
+.copy-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+}
+
+// --------- MOVE EVALUATION ---------
+.move-evaluation {
+  font-size: 1.2rem;
+}
+
+.eval {
+  text-transform: capitalize;
+  font-weight: 800;
+}
+
+.book {
+  color: $book;
+}
+
+.blunder {
+  color: $blunder;
+}
+
+.mistake {
+  color: $mistake;
+}
+
+.inaccuracy {
+  color: $inaccuracy;
+}
+
+.good {
+  color: $good;
+}
+
+.excellent {
+  color: $excellent;
+}
+
+.best {
+  color: $best;
+}
+
+.great {
+  color: $great;
+}
+
+.brilliant {
+  color: $brilliant;
+}

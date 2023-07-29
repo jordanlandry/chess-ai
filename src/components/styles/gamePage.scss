@@ -1,0 +1,171 @@
+@import "../../variables.scss";
+
+// TODO: Make it responsive
+.game-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__menu {
+    $selected-outline-size: 4px;
+
+    overflow-y: scroll;
+    @include cool-scrollbar;
+
+    text-align: center;
+    background-color: $black;
+    padding: 25px;
+    color: $white;
+
+    gap: 25px;
+
+    .menu-team {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: $square-size;
+        cursor: pointer;
+        padding: 5px;
+      }
+    }
+
+    .menu-time-control-presets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+
+      button {
+        border: 1px solid $white;
+        background-color: $black;
+        color: $white;
+        font-size: 1.2rem;
+        padding: 1rem 2rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 0;
+
+        &[data-selected="true"] {
+          outline: $selected-outline-size solid $best;
+        }
+
+        svg {
+          padding: 12px;
+        }
+      }
+    }
+
+    button {
+      transition: 0.2s;
+
+      &[data-selected="true"] {
+        outline: $selected-outline-size solid $best;
+      }
+
+      &[data-selected="false"] {
+        &:hover {
+          outline: $selected-outline-size solid $white;
+        }
+      }
+
+      &:active {
+        outline: $selected-outline-size solid $blunder !important;
+        transform: scale(0.95);
+      }
+    }
+
+    .menu-team-btn {
+      transition: 0.2s;
+      user-select: none;
+      margin: calc(#{$selected-outline-size} * 2);
+    }
+
+    .menu-play-btn {
+      border: 1px solid $white;
+      background-color: $black;
+      color: $white;
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      margin: 50px auto 0 auto;
+      width: 100%;
+
+      transition: 0.2s;
+      &:hover {
+        background-color: $best;
+      }
+    }
+  }
+
+  .clock-wrapper {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: $square-size;
+
+    // I want it 1 square size away from the board
+    // To get the left of the board, it's half of the screen size minus half of the board size
+
+    left: calc(50vw - #{$board-size / 2});
+
+    // Since the left gives me the left, I still need to translate it by the clock size, + another square size
+    transform: translateX(calc(-100% - #{$square-size}));
+
+    &[data-flipped="true"] {
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+.ai-time-limit {
+  &-input-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  text-align: center;
+
+  input {
+    position: relative;
+
+    @mixin spinner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+
+    &::-moz-number-spinners {
+      @include spinner;
+    }
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      @include spinner;
+    }
+
+    text-align: center;
+    width: 100%;
+
+    background-color: transparent;
+    border: none;
+    color: $white;
+
+    font-size: 2rem;
+    width: auto;
+    display: flex;
+
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

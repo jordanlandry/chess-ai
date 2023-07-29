@@ -1,0 +1,49 @@
+@import "../../variables.scss";
+
+.clock {
+  width: min(calc(#{$square-size} * 2), 120px);
+
+  text-align: center;
+  padding: 1rem;
+
+  font-size: 1.5rem;
+
+  &[data-color="white"] {
+    background-color: $white;
+    color: $grey;
+  }
+
+  &[data-color="black"] {
+    color: $white;
+    background-color: $grey;
+  }
+
+  &.clock-warning {
+    outline: 2px solid $blunder;
+    animation: clock-warning;
+    animation-iteration-count: infinite;
+    // Animation duration is set in the component using inline styles
+  }
+}
+
+// Shake the clock when you're low on time
+@keyframes clock-warning {
+  $distance: 3px;
+  $-distance: calc(#{$distance} * -1);
+
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX($-distance);
+  }
+
+  50% {
+    transform: translateX($distance);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}

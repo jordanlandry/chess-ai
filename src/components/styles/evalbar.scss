@@ -1,0 +1,82 @@
+@import "../../variables.scss";
+
+// Size is arbitrary, just picked what felt right
+$eval-bar-width: 24px;
+
+.eval-bar {
+  height: $square-size;
+
+  // This is to keep the board centered
+  margin-left: calc($eval-bar-width * -1 - $board-margin);
+  margin-right: $board-margin;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: $eval-bar-width;
+  height: $board-size;
+
+  .bar {
+    transition: 0.5s;
+    width: 100%;
+
+    display: flex;
+
+    // This way text with length 2 will fit nicely in the bar
+    font-size: calc(#{$eval-bar-width} / 2);
+  }
+
+  &__white {
+    background-color: $white;
+    color: $grey;
+    // Push the text up slightly without padding the par
+
+    div {
+      padding-top: 5px;
+    }
+
+    justify-content: center;
+
+    // Position text to the bottom if it's not flipped
+    &[data-flipped="false"] {
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: flex-start;
+
+      div {
+        padding-bottom: 5px;
+      }
+    }
+  }
+
+  &__black {
+    background-color: $grey;
+    color: $white;
+
+    // Center on the horizontal axis
+    justify-content: center;
+    // Push the text down slightly
+
+    div {
+      padding-top: 5px;
+    }
+
+    // Position text to the bottom if it is flipped
+    &[data-flipped="true"] {
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: flex-start;
+
+      div {
+        padding-bottom: 5px;
+        padding-top: 0;
+      }
+    }
+  }
+
+  &[data-flipped="true"] {
+    flex-direction: column-reverse;
+  }
+}

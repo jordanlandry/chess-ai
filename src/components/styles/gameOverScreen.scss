@@ -1,0 +1,30 @@
+@import "../../variables.scss";
+
+.game-over-screen {
+  background-color: $white;
+  color: $black;
+  padding: 25px;
+
+  text-align: center;
+  text-transform: capitalize;
+
+  .game-over-result {
+    font-size: 2rem;
+  }
+
+  .game-over-message {
+    font-size: 1.5rem;
+  }
+
+  button {
+    transition: 0.2s;
+    border: 1px solid $black;
+    padding: 1rem 2rem;
+    margin: 10px;
+
+    &:hover {
+      background-color: $black;
+      color: $white;
+    }
+  }
+}

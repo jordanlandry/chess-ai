@@ -1,0 +1,111 @@
+@import "../../variables.scss";
+
+$max-width: 900px;
+$min-width: 300px;
+$width: min($max-width, max($min-width, 80dvw));
+$display-square-size: 50px;
+
+.settings-wrapper {
+  @include cool-scrollbar;
+
+  margin-bottom: 25px;
+
+  width: $width;
+
+  position: relative;
+
+  overflow-y: scroll;
+  height: 75dvh;
+
+  background-color: $grey;
+  color: $white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 25px;
+
+  .board-display-wrapper {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    margin: 10px;
+
+    .board-display {
+      cursor: pointer;
+      display: grid;
+      // Grid-template-columns is determined in BoardDisplay.tsx
+
+      &[data-selected="true"] {
+        outline: 6px solid $white;
+      }
+
+      .square {
+        width: $display-square-size;
+        height: $display-square-size;
+      }
+    }
+  }
+
+  .settings__button-wrapper {
+    position: fixed;
+    bottom: -2px;
+    left: 0;
+
+    background-color: $grey;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      font-size: 1.2rem;
+      width: 100%;
+      padding: 10px 0;
+      transition: 0.2s;
+
+      &.save {
+        background-color: $white;
+        color: $black;
+      }
+
+      &.cancel {
+        background-color: $black;
+        color: $white;
+      }
+    }
+  }
+
+  .piece-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    text-transform: capitalize;
+
+    .img-container {
+      display: grid;
+
+      // 6 Because I'm showing all 6 pieces per row
+      grid-template-columns: repeat(6, 1fr);
+
+      &[data-selected="true"] {
+        outline: 6px solid $white;
+      }
+    }
+
+    img {
+      width: calc(#{$width} / 6);
+    }
+  }
+}
