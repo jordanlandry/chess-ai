@@ -162,7 +162,7 @@ export default function GamePage() {
     setMoves([]);
     setScore({ book: true });
     setGameState("not-started");
-    // setTimeControlKey("3+2");
+    setTimeControlKey("3+2");
   }
 
   function closeEndGameScreen() {
