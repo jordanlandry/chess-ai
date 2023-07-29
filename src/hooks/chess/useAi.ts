@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { aiWorker } from "../../engine/src/ai/worker";
 import getUci from "../../engine/src/util/getUci";
 import parseBoardArray from "../../engine/src/util/parseBoardArray";
 import { Evaluation, MinimaxResult } from "../../engine/types";
 import handleMakeMove from "../../functions/handleMakeMove";
 import { ReactRef, ReadableBoard, SetState, Team } from "../../types";
+
+import worker from "../../engine/src/ai/minimax?worker";
+const aiWorker = new worker();
 
 type Props = {
   board: ReadableBoard;
@@ -62,7 +64,7 @@ export default function useAi({
 
     previousScoreRef.current = score;
 
-    aiWorker.addEventListener("message", handleWorkerMessage);
+    aiWorker.onmessage = handleWorkerMessage;
     aiWorker.postMessage({ board: engineBoard, time, timeLimit, prevScore: score });
 
     // Since this re-renders quite a bit, it will be very bad if we don't clean up the event listener

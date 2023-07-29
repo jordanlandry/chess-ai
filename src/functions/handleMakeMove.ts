@@ -11,6 +11,7 @@ import { ReactRef, ReadableBoard, SetState } from "../types";
 import getPositionByIndex from "../util/getPositionByIndex";
 import { resetPieceStyles } from "../util/resetPieceStyles";
 import animatePiece from "./animatePiece";
+import playAudio from "./playAudio";
 
 type Props = {
   board: ReadableBoard;
@@ -51,9 +52,7 @@ export default async function handleMakeMove({
   }
 
   // Play audio
-  const audioName = engineMove.capture ? "capture" : "move";
-  const audio = new Audio(`/assets/audio/${audioName}.mp3`);
-  audio.play();
+  playAudio("move"); // TODO: Change when capture and castle audio is added
 
   // Handle castling
   // 0 is a valid index, so we need to check if it's undefined (Squares.A1 === 0)

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 import { Position, ReactRef } from "../../types";
 import { StylesContext } from "../../App";
+import { IMAGE_PATH } from "../../constants/paths";
 
 type Piece = "p" | "n" | "b" | "r" | "q" | "k" | "P" | "N" | "B" | "R" | "Q" | "K";
 
@@ -28,7 +29,7 @@ export default function Piece({ piece, position, pieceRefs, flipped }: Props) {
   const color = piece === piece.toLowerCase() ? "black" : "white";
   const pieceName = pieceMap[piece.toLowerCase() as Piece];
 
-  const path = `/assets/images/${pieceStyle}/${color}/${pieceName}.png`;
+  const path = `${IMAGE_PATH}/${pieceStyle}/${color}/${pieceName}.png`;
 
   const ref = useRef<HTMLImageElement>(null);
 

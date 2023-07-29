@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Team } from "../types";
 import getTimeString from "../util/getTimeString";
 import "./styles/clock.scss";
+import playAudio from "../functions/playAudio";
 
 type Props = {
   time: number;
@@ -23,10 +24,9 @@ export default function Clock({ color, time, doWarning = true }: Props) {
   const animationTimes = 3; // The number of times the animation will play
 
   if (time <= warningThreshold && !audioPlayed && doWarning) {
-    const audio = new Audio("/src/assets/audio/clock-low.mp3");
     setExtraClassName("clock-warning");
-    audio.play();
-    audio.volume = 0.25;
+
+    playAudio("clock-low", 0.1);
 
     setAudioPlayed(true);
   }

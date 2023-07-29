@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { StylesContext } from "../../App";
+import { IMAGE_PATH } from "../../constants/paths";
 import { timeControlPresets } from "../../constants/timeControlPresets";
 import { STARTING_BOARD } from "../../engine/src/constants/startingBoard";
 import { Evaluation } from "../../engine/types";
@@ -15,9 +16,9 @@ import Modal from "../Modal";
 import Svg, { IconName } from "../Svg";
 import Chess from "../chess/Chess";
 import EvalBar from "../chess/EvalBar";
-import "../styles/gamePage.scss";
 import GameOverScreen from "./GameOverScreen";
 import MoveSection from "./MoveSection";
+import "../styles/gamePage.scss";
 
 type ScoreContext = {
   score: Evaluation;
@@ -241,11 +242,11 @@ export default function GamePage() {
         <h2>Play as</h2>
         <div className="menu-team">
           <button className="menu-team-btn" onClick={() => setSelectedTeam("white")} data-selected={selectedTeam === "white"}>
-            <img draggable={false} src={`/assets/images/${pieceStyle}/white/king.png`} alt="White King" />
+            <img draggable={false} src={`${IMAGE_PATH}/${pieceStyle}/white/king.png`} alt="White King" />
           </button>
 
           <button className="menu-team-btn" onClick={() => setSelectedTeam("black")} data-selected={selectedTeam === "black"}>
-            <img draggable={false} src={`/assets/images/${pieceStyle}/black/king.png`} alt="Black King" />
+            <img draggable={false} src={`${IMAGE_PATH}/${pieceStyle}/black/king.png`} alt="Black King" />
           </button>
         </div>
         <button className="menu-play-btn" onClick={handleStartGame}>

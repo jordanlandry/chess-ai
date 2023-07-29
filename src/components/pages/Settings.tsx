@@ -5,6 +5,7 @@ import { SetState } from "../../types";
 import Modal from "../Modal";
 import BoardDisplay from "../chess/BoardDisplay";
 import "../styles/settings.scss";
+import { IMAGE_PATH } from "../../constants/paths";
 
 type Props = {
   isOpen: boolean;
@@ -50,19 +51,19 @@ export default function Settings({ isOpen, setIsOpen }: Props) {
               <div key={style} className="piece-container" onClick={() => setSelectedPieceStyle(style)}>
                 <h3>{style}</h3>
                 <div className="img-container" data-selected={selectedPieceStyle === style}>
-                  <img src={`/assets/images/${style}/white/king.png`} alt="king" />
-                  <img src={`/assets/images/${style}/white/queen.png`} alt="queen" />
-                  <img src={`/assets/images/${style}/white/rook.png`} alt="rook" />
-                  <img src={`/assets/images/${style}/white/knight.png`} alt="knight" />
-                  <img src={`/assets/images/${style}/white/bishop.png`} alt="bishop" />
-                  <img src={`/assets/images/${style}/white/pawn.png`} alt="pawn" />
+                  <img src={`${IMAGE_PATH}/${style}/white/king.png`} alt="king" />
+                  <img src={`${IMAGE_PATH}/${style}/white/queen.png`} alt="queen" />
+                  <img src={`${IMAGE_PATH}/${style}/white/rook.png`} alt="rook" />
+                  <img src={`${IMAGE_PATH}/${style}/white/knight.png`} alt="knight" />
+                  <img src={`${IMAGE_PATH}/${style}/white/bishop.png`} alt="bishop" />
+                  <img src={`${IMAGE_PATH}/${style}/white/pawn.png`} alt="pawn" />
 
-                  <img src={`/assets/images/${style}/black/king.png`} alt="king" />
-                  <img src={`/assets/images/${style}/black/queen.png`} alt="queen" />
-                  <img src={`/assets/images/${style}/black/rook.png`} alt="rook" />
-                  <img src={`/assets/images/${style}/black/knight.png`} alt="knight" />
-                  <img src={`/assets/images/${style}/black/bishop.png`} alt="bishop" />
-                  <img src={`/assets/images/${style}/black/pawn.png`} alt="pawn" />
+                  <img src={`${IMAGE_PATH}/${style}/black/king.png`} alt="king" />
+                  <img src={`${IMAGE_PATH}/${style}/black/queen.png`} alt="queen" />
+                  <img src={`${IMAGE_PATH}/${style}/black/rook.png`} alt="rook" />
+                  <img src={`${IMAGE_PATH}/${style}/black/knight.png`} alt="knight" />
+                  <img src={`${IMAGE_PATH}/${style}/black/bishop.png`} alt="bishop" />
+                  <img src={`${IMAGE_PATH}/${style}/black/pawn.png`} alt="pawn" />
                 </div>
               </div>
             );

@@ -1,3 +1,4 @@
+import playAudio from "../../functions/playAudio";
 import { GameState, Team } from "../../types";
 import Modal from "../Modal";
 import "../styles/gameOverScreen.scss";
@@ -16,11 +17,7 @@ export default function GameOverScreen({ gameState, aiTeam, handleClose, handleR
   const didAiWin = gameState.winner === aiTeam;
 
   // Play audio based on result
-  const base = "/assets/audio";
-  const audio = new Audio();
-  audio.src = isDraw ? `${base}/lose.mp3` : didAiWin ? `${base}/lose.mp3` : `${base}/win.mp3`;
-  audio.volume = 0.25;
-  audio.play();
+  playAudio(isDraw ? "lose" : didAiWin ? "lose" : "win", 0.1);
 
   return (
     <Modal open={typeof gameState !== "string"} className="game-over-screen">
