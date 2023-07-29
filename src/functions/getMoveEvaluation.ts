@@ -33,8 +33,8 @@ export default function getMoveEvaluation(
 
   const difference = getDifference(prev, current);
 
-  if (isBrilliantMove(difference, move)) return "brilliant";
-  if (isGreatMove(difference, move)) return "great";
+  // if (isBrilliantMove(difference, move)) return "brilliant";
+  // if (isGreatMove(difference, move)) return "great";
   if (isBestMove(move, nextBestMove)) return "best";
 
   if (isMaximizing) {
@@ -62,13 +62,13 @@ export default function getMoveEvaluation(
 // This way you have fully sacrificed a piece, but if it is the best move, then it's a brilliant move
 
 // TODO: Implement this
-function isBrilliantMove(difference: number, move: string): boolean {
-  return false;
-}
+// function isBrilliantMove(difference: number, move: string): boolean {
+//   return false;
+// }
 
-// TODO: Implement this
-function isGreatMove(difference: number, move: string): boolean {
-  return false;
-}
+// // TODO: Implement this
+// function isGreatMove(difference: number, move: string): boolean {
+//   return false;
+// }
 
 const isBestMove = (move: string, nextBestMove: string | null) => move === nextBestMove;

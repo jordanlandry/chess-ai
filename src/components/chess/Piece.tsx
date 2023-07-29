@@ -28,7 +28,7 @@ export default function Piece({ piece, position, pieceRefs, flipped }: Props) {
   const color = piece === piece.toLowerCase() ? "black" : "white";
   const pieceName = pieceMap[piece.toLowerCase() as Piece];
 
-  const path = `src/assets/images/${pieceStyle}/${color}/${pieceName}.png`;
+  const path = `/assets/images/${pieceStyle}/${color}/${pieceName}.png`;
 
   const ref = useRef<HTMLImageElement>(null);
 

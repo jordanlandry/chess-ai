@@ -9,7 +9,6 @@ import comparePositions from "../../util/comparePositions";
 import { isLightSquare } from "../../util/isLightSquare";
 import "../styles/board.scss";
 import Piece from "./Piece";
-import Arrow from "./Arrow";
 
 type Props = {
   board: ReadableBoard;

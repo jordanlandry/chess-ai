@@ -241,11 +241,11 @@ export default function GamePage() {
         <h2>Play as</h2>
         <div className="menu-team">
           <button className="menu-team-btn" onClick={() => setSelectedTeam("white")} data-selected={selectedTeam === "white"}>
-            <img draggable={false} src={`/src/assets/images/${pieceStyle}/white/king.png`} alt="White King" />
+            <img draggable={false} src={`/assets/images/${pieceStyle}/white/king.png`} alt="White King" />
           </button>
 
           <button className="menu-team-btn" onClick={() => setSelectedTeam("black")} data-selected={selectedTeam === "black"}>
-            <img draggable={false} src={`/src/assets/images/${pieceStyle}/black/king.png`} alt="Black King" />
+            <img draggable={false} src={`/assets/images/${pieceStyle}/black/king.png`} alt="Black King" />
           </button>
         </div>
         <button className="menu-play-btn" onClick={handleStartGame}>

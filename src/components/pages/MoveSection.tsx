@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Evaluation } from "../../engine/types";
 import { GameState, Team } from "../../types";
-import getMoveEvaluation, { MoveEvaluation } from "../../util/getMoveEvaluation";
+import getMoveEvaluation, { MoveEvaluation } from "../../functions/getMoveEvaluation";
 import Message from "../Message";
 import Svg from "../Svg";
 import { ScoreContext } from "./GamePage";

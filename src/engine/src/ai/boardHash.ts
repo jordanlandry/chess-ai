@@ -1,49 +1,48 @@
 import { Board } from "../../types";
-import { clearBit, getLsb } from "../bitMacros";
 import { Squares } from "../constants/square";
 
-export function generateHashValues() {
-  // prettier-ignore
-  const board = [
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-  ]
+// export function generateHashValues() {
+//   // prettier-ignore
+//   // const board = [
+//   //   ['', '', '', '', '', '', '', ''],
+//   //   ['', '', '', '', '', '', '', ''],
+//   //   ['', '', '', '', '', '', '', ''],
+//   //   ['', '', '', '', '', '', '', ''],
+//   //   ['', '', '', '', '', '', '', ''],
+//   //   ['', '', '', '', '', '', '', ''],
+//   //   ['', '', '', '', '', '', '', ''],
+//   //   ['', '', '', '', '', '', '', ''],
+//   // ]
 
-  // The board array above was just an easy way to make the bitboard below
-  // const bb = convertToBitboard(board);
+//   // The board array above was just an easy way to make the bitboard below
+//   // const bb = convertToBitboard(board);
 
-  // This doesn't give a fully copy and paste, but it's close enough where I can edit it manually.
-  // For example occupancy and toMove aren't gonna be used
-  let str = "export const hashValues = {\n";
+//   // This doesn't give a fully copy and paste, but it's close enough where I can edit it manually.
+//   // For example occupancy and toMove aren't gonna be used
+//   let str = "export const hashValues = {\n";
 
-  // Generate random number for empty piece
-  str += `empty: ${Math.random()},`;
+//   // Generate random number for empty piece
+//   str += `empty: ${Math.random()},`;
 
-  // Generate random numbers for each piece, and castling rights.
-  Object.keys(bb).forEach((key) => (str += `"${key}": ${Math.random()},`));
+//   // Generate random numbers for each piece, and castling rights.
+//   // Object.keys(bb).forEach((key) => (str += `"${key}": ${Math.random()},`));
 
-  // Generate random numbers for who to move.
-  str += `whiteToMove: ${Math.random()},`;
-  str += `blackToMove: ${Math.random()},`;
+//   // Generate random numbers for who to move.
+//   str += `whiteToMove: ${Math.random()},`;
+//   str += `blackToMove: ${Math.random()},`;
 
-  // Generate random numbers for each square.
-  str += "squares: [";
-  for (let i = 0; i < 64; i++) {
-    str += `${Math.random()},`;
-  }
+//   // Generate random numbers for each square.
+//   str += "squares: [";
+//   for (let i = 0; i < 64; i++) {
+//     str += `${Math.random()},`;
+//   }
 
-  str += "],\n";
+//   str += "],\n";
 
-  str += "};\n";
+//   str += "};\n";
 
-  console.log(str);
-}
+//   console.log(str);
+// }
 
 // These are just some randomly generated numbers to give a unique hash for each piece, square, and castling rights.
 // On my machine, it takes approximately 0.0033ms to generate a hash (so pretty fast lol)
@@ -84,16 +83,18 @@ export const hashValues = {
 };
 
 // This is to help index into the hashValues object with the name of the piece bitboard.
-const hashValueKeys = Object.keys(hashValues);
+// const hashValueKeys = Object.keys(hashValues);
 
 // Take each piece, and do some math with it with the hash value for that piece on that square.
 export default function getBoardHash(board: Board) {
   let hash = 0;
 
   Object.keys(board.pieces).forEach((key) => {
-    const piece = board.pieces[key as PieceKey];
+    // @ts-ignore
+    const piece = board.pieces[key];
 
-    piece.forEach((pos) => {
+    piece.forEach((pos: number) => {
+      // @ts-ignore
       hash += hashValues[key] * hashValues.squares[pos];
     });
 

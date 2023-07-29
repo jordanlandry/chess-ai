@@ -52,7 +52,7 @@ export default async function handleMakeMove({
 
   // Play audio
   const audioName = engineMove.capture ? "capture" : "move";
-  const audio = new Audio(`/src/assets/audio/${audioName}.mp3`);
+  const audio = new Audio(`/assets/audio/${audioName}.mp3`);
   audio.play();
 
   // Handle castling

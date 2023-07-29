@@ -16,7 +16,7 @@ export default function GameOverScreen({ gameState, aiTeam, handleClose, handleR
   const didAiWin = gameState.winner === aiTeam;
 
   // Play audio based on result
-  const base = "/src/assets/audio";
+  const base = "/assets/audio";
   const audio = new Audio();
   audio.src = isDraw ? `${base}/lose.mp3` : didAiWin ? `${base}/lose.mp3` : `${base}/win.mp3`;
   audio.volume = 0.25;

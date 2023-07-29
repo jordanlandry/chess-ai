@@ -3,7 +3,7 @@ import getTeam from "../chess/helpers/getTeam";
 import inBounds from "../chess/helpers/inBounds";
 import { Pieces } from "../constants/piece";
 import { Squares } from "../constants/square";
-import { getGamePhase, getPieceScore, lateGameScoreMap, positionalScoreMap } from "./positionalScoreMap";
+import { getGamePhase, getPieceScore } from "./positionalScoreMap";
 
 // These scores are represented in centipawns (1/100th of a pawn)
 const pieceScores = {
@@ -50,7 +50,7 @@ export function getScore(board: Board) {
   score -= blackKingScore;
 
   score += positionalScore(board);
-  score += passedPawns(board);
+  // score += passedPawns(board);
 
   return score;
 }
@@ -77,42 +77,42 @@ function positionalScore(board: Board) {
 }
 
 // If you have a passed pawn, it is worth more
-function passedPawns(board: Board) {
-  let score = 0;
+// function passedPawns(board: Board) {
+//   let score = 0;
 
-  const isPassedPawn = (position: Square, team: Team) => {
-    const x = position % 8;
-    const y = Math.floor(position / 8);
+//   // const isPassedPawn = (position: Square, team: Team) => {
+//   //   const x = position % 8;
+//   //   const y = Math.floor(position / 8);
 
-    // Check if there are any enemy pawns in front or in the right or left file
-    const enemyPawns = board.pieces[team === "white" ? Pieces.BlackPawn : Pieces.WhitePawn];
-    const enemyPawnsInFront = enemyPawns.filter((enemyPawn) => {
-      const enemyPawnX = enemyPawn % 8;
-      const enemyPawnY = Math.floor(enemyPawn / 8);
+//   //   // Check if there are any enemy pawns in front or in the right or left file
+//   //   const enemyPawns = board.pieces[team === "white" ? Pieces.BlackPawn : Pieces.WhitePawn];
+//   //   const enemyPawnsInFront = enemyPawns.filter((enemyPawn) => {
+//   //     const enemyPawnX = enemyPawn % 8;
+//   //     const enemyPawnY = Math.floor(enemyPawn / 8);
 
-      return enemyPawnY === y && Math.abs(enemyPawnX - x) <= 1;
-    });
+//   //     return enemyPawnY === y && Math.abs(enemyPawnX - x) <= 1;
+//   //   });
 
-    return enemyPawnsInFront.length === 0;
-  };
+//   //   return enemyPawnsInFront.length === 0;
+//   // };
 
-  // Loop through all white pawns
-  // for (const position of board.pieces[Pieces.WhitePawn]) {
-  //   const x = position % 8;
-  //   const y = Math.floor(position / 8);
+//   // Loop through all white pawns
+//   // for (const position of board.pieces[Pieces.WhitePawn]) {
+//   //   const x = position % 8;
+//   //   const y = Math.floor(position / 8);
 
-  //   if (isPassedPawn(position, "white")) score += positionalScoreMap.passedPawn[y][x];
-  // }
+//   //   if (isPassedPawn(position, "white")) score += positionalScoreMap.passedPawn[y][x];
+//   // }
 
-  // // Loop through all black pawns
-  // for (const position of board.pieces[Pieces.BlackPawn]) {
-  //   const x = position % 8;
-  //   const y = Math.floor(position / 8);
-  //   if (isPassedPawn(position, "black")) score -= positionalScoreMap.passedPawn[7 - y][x];
-  // }
+//   // // Loop through all black pawns
+//   // for (const position of board.pieces[Pieces.BlackPawn]) {
+//   //   const x = position % 8;
+//   //   const y = Math.floor(position / 8);
+//   //   if (isPassedPawn(position, "black")) score -= positionalScoreMap.passedPawn[7 - y][x];
+//   // }
 
-  return score;
-}
+//   return score;
+// }
 
 // The more of your own pieces that surround your king, the better
 // The more enemy pieces that surround your king, the worse
