@@ -70,3 +70,12 @@ export type Evaluation =
       mateIn?: undefined;
       book: true;
     };
+
+export type BoardTest = {
+  pieces: PieceState; // Object where key is pieceName, and the value is an array of squares that the piece is on
+  locations: Piece[]; // Array where index is square, and the value is the piece on that square
+  enPassant: Square; // Square that the capturable pawn is on
+  castle: CastleRights;
+  turn: Team;
+  moves: (Move[] | null)[]; // Array of moves that are valid at a given square
+};

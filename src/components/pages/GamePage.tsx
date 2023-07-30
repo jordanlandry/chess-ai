@@ -16,9 +16,9 @@ import Modal from "../Modal";
 import Svg, { IconName } from "../Svg";
 import Chess from "../chess/Chess";
 import EvalBar from "../chess/EvalBar";
+import "../styles/gamePage.scss";
 import GameOverScreen from "./GameOverScreen";
 import MoveSection from "./MoveSection";
-import "../styles/gamePage.scss";
 
 type ScoreContext = {
   score: Evaluation;
@@ -45,7 +45,8 @@ export default function GamePage() {
   const [depth, setDepth] = useState(0);
 
   // Holds the references to each piece
-  const pieceRefs = usePieceRefs();
+  const isFlipped = aiTeam === "white";
+  const pieceRefs = usePieceRefs(isFlipped);
   const boardRef = useRef<HTMLDivElement>(null);
 
   // TODO: Update moves when promotion happens
@@ -115,7 +116,6 @@ export default function GamePage() {
   const { whiteTime, blackTime } = useClock({ board, onTimeUp, isRunning: runClocks, timeControl });
 
   // ----- AI -----
-  const isFlipped = aiTeam === "white";
   const minAiTime = 500; // Half a second
   const maxAiTime = 100000; // 100 seconds
   const [aiTimeLimit, setAiTimeLimit] = useState<number | null>(null);
@@ -141,6 +141,7 @@ export default function GamePage() {
     },
     timeLimit: aiTimeLimit,
     flipped: isFlipped,
+    gameState,
   });
 
   const nextBestMoveRef = useRef(nextBestMove);
@@ -156,7 +157,6 @@ export default function GamePage() {
   };
 
   function reset() {
-    console.log("Resetting");
     setBoard(JSON.parse(JSON.stringify(STARTING_BOARD)));
     setDepth(0);
     setMoves([]);

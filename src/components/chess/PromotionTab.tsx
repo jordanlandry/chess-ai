@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Team } from "../../types";
 import Modal from "../Modal";
 import { StylesContext } from "../../App";
+import { IMAGE_PATH } from "../../constants/paths";
 
 type Props = {
   isPromoting: boolean;
@@ -14,10 +15,10 @@ export default function PromotionTab({ isPromoting, onSelect, team }: Props) {
 
   return (
     <Modal open={isPromoting} className={`promotion promotion-${team}`}>
-      <img src={`src/assets/images/${pieceStyle}/${team}/queen.png`} className="promotion-piece" alt="queen" onClick={() => onSelect("q")} />
-      <img src={`src/assets/images/${pieceStyle}/${team}/rook.png`} className="promotion-piece" alt="rook" onClick={() => onSelect("r")} />
-      <img src={`src/assets/images/${pieceStyle}/${team}/bishop.png`} className="promotion-piece" alt="bishop" onClick={() => onSelect("b")} />
-      <img src={`src/assets/images/${pieceStyle}/${team}/knight.png`} className="promotion-piece" alt="knight" onClick={() => onSelect("n")} />
+      <img src={`${IMAGE_PATH}/${pieceStyle}/${team}/queen.png`} className="promotion-piece" alt="queen" onClick={() => onSelect("q")} />
+      <img src={`${IMAGE_PATH}/${pieceStyle}/${team}/rook.png`} className="promotion-piece" alt="rook" onClick={() => onSelect("r")} />
+      <img src={`${IMAGE_PATH}/${pieceStyle}/${team}/bishop.png`} className="promotion-piece" alt="bishop" onClick={() => onSelect("b")} />
+      <img src={`${IMAGE_PATH}/${pieceStyle}/${team}/knight.png`} className="promotion-piece" alt="knight" onClick={() => onSelect("n")} />
     </Modal>
   );
 }

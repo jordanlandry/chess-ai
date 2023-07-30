@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import getUci from "../../engine/src/util/getUci";
 import parseBoardArray from "../../engine/src/util/parseBoardArray";
-import { Evaluation, MinimaxResult } from "../../engine/types";
+import { Evaluation, MinimaxResult, Move } from "../../engine/types";
 import handleMakeMove from "../../functions/handleMakeMove";
-import { ReactRef, ReadableBoard, SetState, Team } from "../../types";
+import { GameState, ReactRef, ReadableBoard, SetState, Team } from "../../types";
 
 import worker from "../../engine/src/ai/minimax?worker";
-const aiWorker = new worker();
 
 type Props = {
   board: ReadableBoard;
@@ -25,6 +24,8 @@ type Props = {
   time: { time: number; increment: number };
   timeLimit: number | null;
   flipped: boolean;
+
+  gameState: GameState;
 };
 
 type WorkerMessage = { data: MinimaxResult };
@@ -41,8 +42,10 @@ export default function useAi({
   time,
   timeLimit,
   flipped,
+  gameState,
 }: Props) {
   const [nextBestMove, setNextBestMove] = useState<string | null>(null);
+
   const previousScoreRef = useRef(score);
 
   // Since the engine works with a different datatype, we need to convert it
@@ -61,15 +64,18 @@ export default function useAi({
   // Post message to worker when it's the AI's turn
   useEffect(() => {
     if (board.turn !== aiTeam) return;
+    if (gameState !== "in-progress") return;
+    const aiWorker = new worker();
 
     previousScoreRef.current = score;
 
     aiWorker.onmessage = handleWorkerMessage;
     aiWorker.postMessage({ board: engineBoard, time, timeLimit, prevScore: score });
 
-    // Since this re-renders quite a bit, it will be very bad if we don't clean up the event listener
-    return () => aiWorker.removeEventListener("message", handleWorkerMessage);
-  }, [board]);
+    return () => {
+      aiWorker.terminate();
+    };
+  }, [board, gameState]);
 
   return { nextBestMove, previousScoreRef };
 }

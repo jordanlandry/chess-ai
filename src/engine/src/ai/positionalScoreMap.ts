@@ -68,8 +68,6 @@ export const positionalScoreMap = {
     [-10, 5, 0, 0, 0, 0, 5, -10],
     [-20, -10, -10, -10, -10, -10, -10, -20],
   ],
-
-  // Giving rooks a bad score for being on the base square so that castling is more encouraged
   rook: [
     [0, 0, 0, 0, 0, 0, 0, 0],
     [5, 10, 10, 10, 10, 10, 10, 5],
@@ -77,8 +75,8 @@ export const positionalScoreMap = {
     [-5, 0, 0, 0, 0, 0, 0, -5],
     [-5, 0, 0, 0, 0, 0, 0, -5],
     [-5, 0, 0, 0, 0, 0, 0, -5],
-    [-20, 0, 0, 0, 0, 0, 0, -20],
-    [-40, 0, 0, 5, 5, 0, 0, -40],
+    [-5, 0, 0, 0, 0, 0, 0, -5],
+    [-5, 0, 0, 5, 5, 0, 0, -5],
   ],
 
   queen: [
@@ -183,15 +181,17 @@ export const lateGameScoreMap = {
     [0, 0, 0, 0, 0, 0, 0, 0],
   ],
 
-  // Kings are useful pieces in the endgame, so we will give them no penalties or bonuses
+  // During the endgame, a lot of the time the king can only be checkmated if it is on the edge of the board
+  // Penalizing the king for being in those squares will help the ai force the king to the edge of the board
+  // Where it can see the checkmate
   king: [
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [-20, -20, -20, -20, -20, -20, -20, -20],
+    [-20, -10, -10, -10, -10, -10, -10, -20],
+    [-20, -10, 0, 0, 0, 0, -10, -20],
+    [-20, -10, 0, 0, 0, 0, -10, -20],
+    [-20, -10, 0, 0, 0, 0, -10, -20],
+    [-20, -10, 0, 0, 0, 0, -10, -20],
+    [-20, -10, -10, -10, -10, -10, -10, -20],
+    [-20, -20, -20, -20, -20, -20, -20, -20],
   ],
 };

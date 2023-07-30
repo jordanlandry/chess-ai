@@ -2,6 +2,7 @@ import { estimatedElos } from "../constants/estimatedElos";
 
 export default function getAiElo(timeLimit: number | string) {
   if (typeof timeLimit === "string") timeLimit = parseFloat(timeLimit);
+  if (isNaN(timeLimit)) return 0;
 
   const keys = Object.keys(estimatedElos).map(Number);
   const minKey = Math.min(...keys);

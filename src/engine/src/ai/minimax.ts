@@ -60,6 +60,9 @@ export function getBestMove(
     const beta = Infinity;
     const isMax = board.turn === "white";
 
+    // Reset the transposition table
+    table.clear();
+
     // Keep the previous best move so we can use it as the first move in the next iteration
     // To help prune the tree if this move is still the best
     const previousBestMove = result?.move;
@@ -147,9 +150,9 @@ function minimax({
   // Check transposition table
   // TODO: Fix the transposition table
   const hash = getBoardHash(board) * depth;
-  // const cached = table.get(hash);
+  const cached = table.get(hash);
 
-  // if (cached) return cached;
+  if (cached) return cached;
 
   // Check the time limit
   if (Date.now() - startTime > timeLimit) return null;
@@ -164,7 +167,7 @@ function minimax({
     };
 
     // Add to transposition table
-    table.set(hash, result);
+    // table.set(hash, result);
 
     return result;
   }
@@ -243,7 +246,9 @@ function minimax({
       bestSequence = result.sequence;
     }
 
-    //
+    // Add to transposition table
+    const hash = getBoardHash(board) * depth;
+    table.set(hash, result);
 
     // Update Alpha-Beta
     if (isMax) alpha = Math.max(alpha, result.score);

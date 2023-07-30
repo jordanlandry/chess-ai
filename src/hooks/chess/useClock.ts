@@ -30,15 +30,24 @@ export default function useClock({ board, onTimeUp = () => {}, onTick = () => {}
     if (whiteIncrement && turn === "black") setWhiteTime((prevTime) => prevTime + whiteIncrement);
     if (blackIncrement && turn === "white") setBlackTime((prevTime) => prevTime + blackIncrement);
 
-    // Update the timer
+    // Variables depending on the team
     const intervalRef = turn === "white" ? whiteIntervalRef : blackIntervalRef;
     const setTime = turn === "white" ? setWhiteTime : setBlackTime;
+
+    // Delta time handler
+    let lastUpdateTime = 0;
+
+    // Update the timer
     const interval = setInterval(() => {
+      const now = performance.now();
       setTime((prevTime) => {
-        const newTime = prevTime - intervalRef.current / 1000;
+        const newTime = prevTime - lastUpdateTime / 1000 - intervalRef.current / 1000;
         onTick(newTime, turn);
         return newTime;
       });
+
+      // Update the delta time
+      lastUpdateTime = performance.now() - now;
     }, intervalRef.current);
 
     // Cleanup
@@ -52,13 +61,6 @@ export default function useClock({ board, onTimeUp = () => {}, onTick = () => {}
 
   useEffect(() => {
     if (!isRunning) return;
-
-    // Change the interval to 100ms if you have less than 1 minute left
-    // if (whiteTime <= 60) whiteIntervalRef.current = 100;
-    // else whiteIntervalRef.current = 1000;
-
-    // if (blackTime <= 60) blackIntervalRef.current = 100;
-    // else blackIntervalRef.current = 1000;
 
     // Check if the timer has run out
     if (whiteTime <= 0) onTimeUp("white");
