@@ -119,6 +119,13 @@ export default function GamePage() {
   const minAiTime = 500; // Half a second
   const maxAiTime = 100000; // 100 seconds
   const [aiTimeLimit, setAiTimeLimit] = useState<number | null>(null);
+  const aiTotalTime = aiTeam === "black" ? timeControl.blackTime * 1000 : timeControl.whiteTime * 1000;
+
+  // This is just assuming every game is around 30 moves total
+  const avgAiTime = (aiTotalTime + (aiTeam === "black" ? timeControl.blackIncrement * 1000 : timeControl.whiteIncrement * 1000)) / 30;
+
+  const aiTime = aiTimeLimit ? aiTimeLimit : avgAiTime;
+  const estimatedAiElo = getAiElo(aiTime);
 
   const onAiTimeBlur = () => {
     if (typeof aiTimeLimit !== "number") return;
@@ -260,7 +267,7 @@ export default function GamePage() {
 
       <ScoreContext.Provider value={{ score, setScore, nextBestMove: nextBestMoveRef.current }}>
         <MoveSection
-          header={"AI Name 1234 Elo"}
+          header={`Chess AI ${estimatedAiElo} Elo`}
           moves={moves}
           aiTeam={aiTeam}
           previousScore={previousScoreRef.current}

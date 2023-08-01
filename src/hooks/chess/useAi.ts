@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import getUci from "../../engine/src/util/getUci";
 import parseBoardArray from "../../engine/src/util/parseBoardArray";
-import { Evaluation, MinimaxResult, Move } from "../../engine/types";
+import { Evaluation, MinimaxResult } from "../../engine/types";
 import handleMakeMove from "../../functions/handleMakeMove";
 import { GameState, ReactRef, ReadableBoard, SetState, Team } from "../../types";
 
