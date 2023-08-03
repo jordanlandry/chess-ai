@@ -38,7 +38,9 @@
     padding-right: -11px; // This is to hide the scrollbar
 
     // Make sure the max-height doesn't extend the window so you can still scroll
-    max-height: calc(100dvh - #{$board-size} - #{2 * $move-section-padding} - #{$clock-height});
+    $max-height: calc(100dvh - #{$board-size} - #{2 * $move-section-padding} - #{$clock-height});
+
+    height: max($max-height, $board-size);
     gap: 1px;
   }
 }

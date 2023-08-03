@@ -7,9 +7,9 @@ import useIsRefDefined from "../../hooks/useIsRefDefined";
 import { Position, ReactRef, ReadableBoard, SetState } from "../../types";
 import comparePositions from "../../util/comparePositions";
 import { isLightSquare } from "../../util/isLightSquare";
+import Svg from "../Svg";
 import "../styles/board.scss";
 import Piece from "./Piece";
-import Svg from "../Svg";
 
 type Props = {
   board: ReadableBoard;
@@ -91,7 +91,6 @@ export default function Board({
           <Svg name="gear" />
         </button>
       </div>
-      {/* TODO: */}
       {/* <Arrow start={{ x: 100, y: 100 }} end={{ x: 300, y: 200 }} /> */}
     </div>
   );

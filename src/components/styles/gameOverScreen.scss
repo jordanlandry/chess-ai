@@ -1,12 +1,16 @@
 @import "../../variables.scss";
 
 .game-over-screen {
-  background-color: $white;
-  color: $black;
+  background-color: $black;
+  color: $white;
   padding: 25px;
+  width: min(75%, 600px);
 
   text-align: center;
   text-transform: capitalize;
+
+  @include cool-scrollbar;
+  overflow-y: auto;
 
   .game-over-result {
     font-size: 2rem;
@@ -18,13 +22,14 @@
 
   button {
     transition: 0.2s;
-    border: 1px solid $black;
+    border: 1px solid $white;
+    color: $white;
     padding: 1rem 2rem;
     margin: 10px;
 
     &:hover {
-      background-color: $black;
-      color: $white;
+      background-color: $white;
+      color: $black;
     }
   }
 }
