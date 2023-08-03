@@ -9,18 +9,17 @@
     position: relative;
 
     button {
+      width: $board-margin;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       position: absolute;
+      padding: 0;
 
       z-index: 2;
       left: 100%;
       top: 0;
-
-      svg {
-        color: $white;
-      }
-
-      // padding: 10px;
-      width: fit-content;
 
       background-color: transparent;
       border: none;
@@ -30,14 +29,31 @@
       &:focus {
         outline: none;
       }
+
+      $svg-size: calc(#{$board-margin} - 4px);
+      svg {
+        color: $white;
+        width: $svg-size;
+        height: $svg-size;
+      }
+
+      @media (max-width: $mobile-breakpoint) {
+        width: 20px;
+        height: 20px;
+
+        svg {
+          width: 20px;
+          height: 20px;
+          transform: translateX(50%);
+        }
+      }
     }
 
     // Since the button is a child of the board when it is flipped, we need to flip it again so it doesn't get flipped
     &[data-flipped="true"] {
       button {
-        top: -10px;
-
-        transform: translateY(-100%) rotate(180deg);
+        left: calc(#{$board-margin} * -1);
+        top: calc(100% - #{$board-margin});
       }
     }
   }

@@ -6,7 +6,7 @@ $grey: rgb(70, 70, 70);
 $black: rgb(40, 40, 40);
 
 // The amount of space between the board and the other components like the eval bar and move section
-$board-margin: 12px;
+$board-margin: min(2vw, 24px);
 
 // Additional square colors for highlighting
 $selected-square: rgba(255, 255, 0, 0.5);
@@ -30,15 +30,17 @@ $eval-bar-width: 24px;
 
 $move-section-width: calc(#{$square-size} * 3);
 $move-section-padding: 24px;
-$full-move-section-width: calc(#{$move-section-width} + #{$move-section-padding} * 2);
+$full-move-section-width: calc(
+  #{$move-section-width} + #{$move-section-padding} * 2
+);
 
 $clock-height: 48px;
 
 // This is the breakpoint where the move-section will wrap onto a new line
 // I will use media queries to make sure it is responsive based on this mobile-breakpoint value
 $mobile-breakpoint: calc(
-  #{$board-size} + #{$move-section-width} + #{$move-section-padding} + #{$board-margin} * 2 + #{$eval-bar-width} + calc(#{$full-move-section-width} / 2 +
-        24px)
+  #{$board-size} + #{$move-section-width} + #{$move-section-padding} + #{$board-margin} *
+    2 + #{$eval-bar-width} + calc(#{$full-move-section-width} / 2 + 24px)
 ); // Adding 24px at the end for things like the scrollbar
 
 @mixin cool-scrollbar {
