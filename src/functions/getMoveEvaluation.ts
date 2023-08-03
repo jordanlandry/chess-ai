@@ -29,6 +29,7 @@ export default function getMoveEvaluation(
   nextBestMove: string | null,
   isMaximizing: boolean
 ): MoveEvaluation {
+  if (!current) return "book";
   if (current.book) return "book";
 
   const difference = getDifference(prev, current);

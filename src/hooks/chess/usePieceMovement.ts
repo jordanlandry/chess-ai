@@ -6,6 +6,7 @@ import getIndexByPosition from "../../util/getIndexByPosition";
 import getTeam from "../../util/getTeam";
 import { resetPieceStyles } from "../../util/resetPieceStyles";
 import { Move } from "../../engine/types";
+import { getBoardPosition } from "../../util/getBoardPosition";
 
 type Props = {
   board: ReadableBoard;
@@ -46,20 +47,6 @@ export default function usePieceMovement(props: Props) {
 
   const [hoveredPosition, setHoveredPosition] = useState<Position | null>(null);
 
-  const getBoardPosition = (e: MouseEvent, flipped: boolean) => {
-    if (!boardRef.current) return null;
-
-    const { left, top, width } = boardRef.current.getBoundingClientRect();
-    const squareSize = width / 8;
-
-    const x = flipped ? Math.floor((left + width - e.clientX) / squareSize) : Math.floor((e.clientX - left) / squareSize);
-    const y = flipped ? Math.floor((top + width - e.clientY) / squareSize) : Math.floor((e.clientY - top) / squareSize);
-
-    if (x < 0 || x > 7 || y < 0 || y > 7) return null;
-
-    return { x, y };
-  };
-
   useEffect(() => {
     if (!boardRef.current) return;
     if (!pieceRefs.current) return;
@@ -76,7 +63,7 @@ export default function usePieceMovement(props: Props) {
       if (e.button !== 0) return; // Make sure it's a left-click
 
       isMouseDownRef.current = true;
-      const position = getBoardPosition(e, flipped);
+      const position = getBoardPosition(e, flipped, boardRef);
 
       if (!position) {
         setSelectedPosition(null);
@@ -117,7 +104,7 @@ export default function usePieceMovement(props: Props) {
       if (!selectedPosition) return;
 
       // If you let go of your mouse on an already selected piece, then deselect it (If it's not your first time clicking on it)
-      const position = getBoardPosition(e, flipped);
+      const position = getBoardPosition(e, flipped, boardRef);
       if (!position) resetPieceStyles(pieceRefs, selectedPosition, flipped);
       // If you let go on the same square you clicked on, then deselect it if it's not your first time clicking on it
       // Because if it is your first time clicking on it, then you're just selecting it
@@ -145,7 +132,7 @@ export default function usePieceMovement(props: Props) {
       if (!isMouseDownRef.current) return;
       if (!selectedPosition || !pieceRefs.current || !boardRef.current) return;
 
-      const position = getBoardPosition(e, flipped);
+      const position = getBoardPosition(e, flipped, boardRef);
 
       const piece = pieceRefs.current[selectedPosition.y][selectedPosition.x];
       if (!piece) return;

@@ -11,4 +11,4 @@ export const boardColors = {
 } as { [key: string]: { light: string; dark: string } };
 
 // These values are just from assets/images folder names
-export const pieceStyles = ["cartoon", "wood", "drawn"];
+export const pieceStyles = ["cartoon", "wood", "challenge"];
