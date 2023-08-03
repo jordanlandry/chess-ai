@@ -9,7 +9,12 @@ export default function useLastMovePosition(board: ReadableBoard, moveList: stri
   const [lastMoveTo, setLastMoveTo] = useState<Position | null>(null);
 
   useEffect(() => {
-    if (moveList.length === 0) return;
+    if (moveList.length === 0) {
+      setLastMoveFrom(null);
+      setLastMoveTo(null);
+      return;
+    }
+
     const lastMove = moveList[moveList.length - 1];
 
     const engineBoard = parseBoardArray(board);

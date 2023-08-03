@@ -118,6 +118,23 @@
       &:hover {
         background-color: $best;
       }
+
+      &:disabled {
+        background-color: $black;
+        color: darken($white, 50%);
+        border: 1px solid darken($white, 50%);
+
+        cursor: not-allowed;
+
+        &:hover {
+          background-color: $black;
+        }
+
+        &:active {
+          transform: none;
+          outline: none !important;
+        }
+      }
     }
   }
 
@@ -133,7 +150,6 @@
 
     // I want it 1 square size away from the board
     // To get the left of the board, it's half of the screen size minus half of the board size
-
     left: calc(50vw - #{$board-size / 2});
 
     // Since the left gives me the left, I still need to translate it by the clock size, + another square size

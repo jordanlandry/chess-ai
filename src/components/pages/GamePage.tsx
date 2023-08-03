@@ -169,7 +169,7 @@ export default function GamePage() {
     setMoves([]);
     setScore({ book: true });
     setGameState("not-started");
-    setTimeControlKey("3+2");
+    setTimeControlKey("");
   }
 
   function closeEndGameScreen() {
@@ -248,7 +248,7 @@ export default function GamePage() {
             <img draggable={false} src={`${IMAGE_PATH}/${pieceStyle}/black/king.png`} alt="Black King" />
           </button>
         </div>
-        <button className="menu-play-btn" onClick={handleStartGame}>
+        <button className="menu-play-btn" onClick={handleStartGame} disabled={timeControlKey === ""}>
           Play
         </button>
       </Modal>
