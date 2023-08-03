@@ -76,6 +76,7 @@ export default function Chess({ board, setBoard, onPieceMove, pieceRefs, boardRe
         flipped={flipped}
         setIsSettingsOpened={setIsSettingsOpened}
       />
+
       <PromotionTab isPromoting={promotionMove !== ""} onSelect={onPromotion} team={board.turn} />
 
       <Settings isOpen={isSettingsOpened} setIsOpen={setIsSettingsOpened} />

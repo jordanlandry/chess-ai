@@ -5,27 +5,27 @@
   justify-content: center;
   align-items: center;
 
-  flex-direction: column;
-
-  // This is so I can vertically center the board
-  height: 100vh;
-
   .board {
     position: relative;
 
     button {
       position: absolute;
 
-      top: calc(#{$square-size} * 8 + 10px);
-      padding: 10px;
-      background-color: $white;
+      z-index: 2;
+      left: 100%;
+      top: 0;
 
-      transition: background-color, color 0.2s;
-
-      &:hover {
-        background-color: $best;
+      svg {
         color: $white;
       }
+
+      // padding: 10px;
+      width: fit-content;
+
+      background-color: transparent;
+      border: none;
+
+      transition: background-color, color 0.2s;
 
       &:focus {
         outline: none;

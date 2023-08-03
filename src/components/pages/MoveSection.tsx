@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Evaluation } from "../../engine/types";
 import { GameState, Team } from "../../types";
 import getMoveEvaluation, { MoveEvaluation } from "../../functions/getMoveEvaluation";
@@ -83,6 +83,14 @@ export default function MoveSection(props: Props) {
     setNotificationVisible(true);
     navigator.clipboard.writeText(movesString);
   };
+  
+  // Scroll to the bottom of the move list when a new move is added
+  const moveListRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (moveListRef.current) {
+      moveListRef.current.scrollTop = moveListRef.current.scrollHeight;
+    }
+  }, [moves])
 
   return (
     <div className="move-section">
@@ -96,7 +104,7 @@ export default function MoveSection(props: Props) {
           </>
         ) : null}
       </div>
-      <div className="move-list">
+      <div className="move-list" ref={moveListRef}>
         {moveLines.map((line, index) => (
           <div key={index} className="move-line">
             {line.map((move, index) => (
@@ -109,7 +117,7 @@ export default function MoveSection(props: Props) {
       {moves.length ? (
         <div className="copy-wrapper">
           <button onClick={handleClipboardPress} className="copy-button">
-            <Svg name="clipboard" color="white" size={24} />
+            <Svg name="clipboard" color="white" size={16} />
           </button>
           <Message visible={notificationVisible} setIsVisible={setNotificationVisible}>
             Copied to clipboard!

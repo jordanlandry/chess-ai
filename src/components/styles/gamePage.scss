@@ -1,10 +1,31 @@
 @import "../../variables.scss";
 
-// TODO: Make it responsive
+@function will-wrap($board-size, $move-section-width) {
+  // Calculate the total width of the flex items (including margin)
+  $total-width: calc(#{$board-size} + #{$move-section-width});
+
+  // Get the width of the window
+  $window-width: 100vw;
+
+  @return true;
+}
+
 .game-page {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  flex-wrap: wrap;
+
+  height: 100dvh;
+  overflow-y: hidden;
+
+  margin-left: calc(#{$move-section-width} / 2);
+  @media (max-width: $mobile-breakpoint) {
+    margin-left: calc(#{$eval-bar-width} / -2);
+  }
+
+  gap: 0;
 
   &__menu {
     $selected-outline-size: 4px;
@@ -108,16 +129,29 @@
     justify-content: center;
     gap: $square-size;
 
+    z-index: 10;
+
     // I want it 1 square size away from the board
     // To get the left of the board, it's half of the screen size minus half of the board size
 
     left: calc(50vw - #{$board-size / 2});
 
     // Since the left gives me the left, I still need to translate it by the clock size, + another square size
-    transform: translateX(calc(-100% - #{$square-size}));
+    transform: translateX(calc(-100% - #{$square-size} * 2));
 
     &[data-flipped="true"] {
       flex-direction: column-reverse;
+    }
+
+    @media (max-width: $mobile-breakpoint) {
+      position: static;
+      flex-direction: row;
+      transform: none;
+      gap: 0;
+      justify-content: space-between;
+
+      width: $board-size;
+      margin-left: calc(#{$board-margin} + #{$eval-bar-width});
     }
   }
 }
@@ -152,13 +186,12 @@
     }
 
     text-align: center;
-    width: 100%;
 
     background-color: transparent;
     border: none;
     color: $white;
 
-    font-size: 2rem;
+    font-size: 1.5rem;
     width: auto;
     display: flex;
 

@@ -25,6 +25,22 @@ $best: rgb(0, 128, 0);
 $great: rgb(0, 53, 128);
 $brilliant: rgb(0, 213, 255);
 
+// Size is arbitrary, just picked what felt right
+$eval-bar-width: 24px;
+
+$move-section-width: calc(#{$square-size} * 3);
+$move-section-padding: 24px;
+$full-move-section-width: calc(#{$move-section-width} + #{$move-section-padding} * 2);
+
+$clock-height: 48px;
+
+// This is the breakpoint where the move-section will wrap onto a new line
+// I will use media queries to make sure it is responsive based on this mobile-breakpoint value
+$mobile-breakpoint: calc(
+  #{$board-size} + #{$move-section-width} + #{$move-section-padding} + #{$board-margin} * 2 + #{$eval-bar-width} + calc(#{$full-move-section-width} / 2 +
+        24px)
+); // Adding 24px at the end for things like the scrollbar
+
 @mixin cool-scrollbar {
   $scrollbar-width: 11px;
 

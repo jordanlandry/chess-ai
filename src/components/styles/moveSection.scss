@@ -1,33 +1,46 @@
 @import "../../variables.scss";
 
-$section-padding: 24px;
-
 .move-section {
-  h2 {
-    margin-bottom: 0; // Remove margin to let the gap handle it
-    font-size: 2rem;
-  }
-
-  // Position absolute to keep the board centered
-  position: absolute;
-  display: flex;
-
+  width: $move-section-width;
+  text-align: center;
   gap: 25px;
+  display: flex;
 
   flex-direction: column;
   justify-content: space-between;
 
-  padding: 0 $section-padding;
-
-  // Needs to go to the right of the board
-  // To calculate this I need half the window size + half the board size
-  left: calc(50vw + #{$board-size / 2});
+  padding: 0 $move-section-padding;
 
   margin-left: $board-margin;
   height: $board-size;
 
   background-color: $grey;
   color: white;
+
+  h2 {
+    margin-bottom: 0; // Remove margin to let the gap handle it
+    font-size: min(3dvw, 3dvh);
+  }
+
+  div {
+    font-size: min(3dvw, 3dvh, 24px);
+  }
+
+  // This is when the parent gets wrapped and this is now below the board
+  @media (max-width: $mobile-breakpoint) {
+    width: calc(#{$board-size} - #{$move-section-padding} * 2);
+    margin-left: calc(#{$board-margin} + #{$eval-bar-width});
+    margin-bottom: auto;
+
+    overflow-y: scroll;
+    @include cool-scrollbar;
+    overflow-x: hidden;
+    padding-right: -11px; // This is to hide the scrollbar
+
+    // Make sure the max-height doesn't extend the window so you can still scroll
+    max-height: calc(100dvh - #{$board-size} - #{2 * $move-section-padding} - #{$clock-height});
+    gap: 1px;
+  }
 }
 
 .move-list {
@@ -40,7 +53,6 @@ $section-padding: 24px;
     display: flex;
     justify-content: space-between;
     padding-right: 15px;
-    font-size: 0.8rem;
 
     margin-bottom: 16px;
   }
@@ -102,8 +114,8 @@ $section-padding: 24px;
 
   // I want the button to take up the whole width (including the padding)
   // To keep it centered I need to add a negative margin
-  width: calc(100% + #{$section-padding * 2});
-  margin-left: calc(-1 * #{$section-padding});
+  width: calc(100% + #{$move-section-padding * 2});
+  margin-left: calc(-1 * #{$move-section-padding});
 
   font-size: 1.2rem;
   transition: 0.2s;

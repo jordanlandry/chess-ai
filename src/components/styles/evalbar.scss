@@ -1,13 +1,10 @@
 @import "../../variables.scss";
 
-// Size is arbitrary, just picked what felt right
-$eval-bar-width: 24px;
-
 .eval-bar {
   height: $square-size;
 
   // This is to keep the board centered
-  margin-left: calc($eval-bar-width * -1 - $board-margin);
+  // margin-left: calc($eval-bar-width * -1 - $board-margin);
   margin-right: $board-margin;
 
   display: flex;

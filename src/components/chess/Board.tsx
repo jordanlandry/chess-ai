@@ -9,6 +9,7 @@ import comparePositions from "../../util/comparePositions";
 import { isLightSquare } from "../../util/isLightSquare";
 import "../styles/board.scss";
 import Piece from "./Piece";
+import Svg from "../Svg";
 
 type Props = {
   board: ReadableBoard;
@@ -86,7 +87,9 @@ export default function Board({
     <div className="board-wrapper">
       <div className="board" ref={boardRef} data-flipped={flipped}>
         {squareElements}
-        <button onClick={() => setIsSettingsOpened(true)}>Change Board</button>
+        <button onClick={() => setIsSettingsOpened(true)}>
+          <Svg name="gear" />
+        </button>
       </div>
       {/* TODO: */}
       {/* <Arrow start={{ x: 100, y: 100 }} end={{ x: 300, y: 200 }} /> */}

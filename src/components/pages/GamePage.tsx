@@ -204,11 +204,6 @@ export default function GamePage() {
 
   return (
     <div className="game-page">
-      <div className="clock-wrapper" data-flipped={isFlipped}>
-        <Clock time={blackTime} color="black" key="black" doWarning={aiTeam !== "black"} />
-        <Clock time={whiteTime} color="white" key="white" doWarning={aiTeam !== "white"} />
-      </div>
-
       <Modal open={gameState === "not-started"} className="game-page__menu">
         <h1>Play Chess</h1>
         <div className="menu-time-control">
@@ -221,9 +216,6 @@ export default function GamePage() {
                 {Math.floor(preset.time / 60)} + {preset.increment}
               </button>
             ))}
-            {/* TODO:<button data-selected={timeControlKey === "custom"} onClick={() => handleTimeControlChange("custom")}>
-                Custom
-              </button> */}
             <button data-selected={timeControlKey === "none"} onClick={() => handleTimeControlChange("none")}>
               None
             </button>
@@ -263,9 +255,30 @@ export default function GamePage() {
 
       <GameOverScreen gameState={gameState} aiTeam={aiTeam} handleRematch={reset} handleClose={closeEndGameScreen} />
 
-      <EvalBar score={score} flipped={isFlipped} />
-
       <ScoreContext.Provider value={{ score, setScore, nextBestMove: nextBestMoveRef.current }}>
+        <div style={{ display: "flex" }}>
+          <EvalBar score={score} flipped={isFlipped} />
+          <Chess
+            board={board}
+            setBoard={setBoard}
+            onPieceMove={onPieceMove}
+            boardRef={boardRef}
+            pieceRefs={pieceRefs}
+            moves={moves}
+            setMoves={setMoves}
+            running={gameState === "in-progress"}
+            aiTeam={aiTeam}
+            flipped={isFlipped}
+          />
+        </div>
+
+        {timeControlKey !== "none" ? (
+          <div className="clock-wrapper" data-flipped={isFlipped}>
+            <Clock time={blackTime} color="black" key="black" doWarning={aiTeam !== "black"} />
+            <Clock time={whiteTime} color="white" key="white" doWarning={aiTeam !== "white"} />
+          </div>
+        ) : null}
+
         <MoveSection
           header={`Chess AI ${estimatedAiElo} Elo`}
           moves={moves}
@@ -275,19 +288,6 @@ export default function GamePage() {
           gameState={gameState}
           handleNewGame={reset}
           handleResign={handleResign}
-        />
-
-        <Chess
-          board={board}
-          setBoard={setBoard}
-          onPieceMove={onPieceMove}
-          boardRef={boardRef}
-          pieceRefs={pieceRefs}
-          moves={moves}
-          setMoves={setMoves}
-          running={gameState === "in-progress"}
-          aiTeam={aiTeam}
-          flipped={isFlipped}
         />
       </ScoreContext.Provider>
     </div>

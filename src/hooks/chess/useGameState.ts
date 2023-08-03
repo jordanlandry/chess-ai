@@ -65,7 +65,7 @@ export default function useGameState({ whiteTime, blackTime, runClocks, board, s
     else lastPawnMoveRef.current++;
   }, [moveList, board]);
 
-  useEffect(() => {
-    if (lastPawnMoveRef.current >= 50) setGameState({ drawBy: "50move" });
-  }, [lastPawnMoveRef.current]);
+  // useEffect(() => {
+  //   if (lastPawnMoveRef.current >= 50) setGameState({ drawBy: "50move" });
+  // }, [lastPawnMoveRef.current]);
 }
