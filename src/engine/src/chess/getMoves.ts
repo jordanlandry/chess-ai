@@ -33,7 +33,10 @@ export function getAllMoves(board: Board, turn: Team) {
 
 // ------------------ Pawn ------------------
 function getPawnMoves(board: Board, turn: Team, moves: Move[]) {
-  const pawnSquares = turn === "white" ? board.pieces[Pieces.WhitePawn] : board.pieces[Pieces.BlackPawn];
+  const pawnSquares =
+    turn === "white"
+      ? board.pieces[Pieces.WhitePawn]
+      : board.pieces[Pieces.BlackPawn];
   const otherTeam = turn === "white" ? "black" : "white";
   const promotionRank = turn === "white" ? Squares.a7 : Squares.a2; // Not a8 and a1 because it's the square the pawn is on, not the square it's moving to
 
@@ -44,10 +47,12 @@ function getPawnMoves(board: Board, turn: Team, moves: Move[]) {
   const knight = turn === "white" ? Pieces.WhiteKnight : Pieces.BlackKnight;
 
   for (const square of pawnSquares) {
-    const pushOne = turn === "white" ? ((square - 8) as Square) : ((square + 8) as Square);
+    const pushOne =
+      turn === "white" ? ((square - 8) as Square) : ((square + 8) as Square);
     const pushOneTeam = getTeam(board, pushOne);
 
-    const pushTwo = turn === "white" ? ((square - 16) as Square) : ((square + 16) as Square);
+    const pushTwo =
+      turn === "white" ? ((square - 16) as Square) : ((square + 16) as Square);
     const pushTwoTeam = getTeam(board, pushTwo);
 
     const minPushTwo = turn === "white" ? Squares.a2 : Squares.a7;
@@ -63,7 +68,11 @@ function getPawnMoves(board: Board, turn: Team, moves: Move[]) {
       } else moves.push({ from: square, to: pushOne });
 
       // Double pawn push
-      if (pushTwoTeam === "none" && square >= minPushTwo && square <= maxPushTwo) {
+      if (
+        pushTwoTeam === "none" &&
+        square >= minPushTwo &&
+        square <= maxPushTwo
+      ) {
         const move: Move = { from: square, to: pushTwo, doublePawnPush: true };
         moves.push(move);
       }
@@ -71,30 +80,76 @@ function getPawnMoves(board: Board, turn: Team, moves: Move[]) {
 
     // Pawn captures
     const canCapLeft = turn === "white" ? square % 8 !== 0 : square % 8 !== 7;
-    const leftCapture = turn === "white" ? ((square - 9) as Square) : ((square + 9) as Square);
+    const leftCapture =
+      turn === "white" ? ((square - 9) as Square) : ((square + 9) as Square);
     const leftCaptureTeam = getTeam(board, leftCapture);
 
     if (inBounds(leftCapture) && canCapLeft && leftCaptureTeam === otherTeam) {
       const isPromotion = sameRank(square, promotionRank);
       if (isPromotion) {
-        moves.push({ from: square, to: leftCapture, capture: true, promotion: queen });
-        moves.push({ from: square, to: leftCapture, capture: true, promotion: rook });
-        moves.push({ from: square, to: leftCapture, capture: true, promotion: bishop });
-        moves.push({ from: square, to: leftCapture, capture: true, promotion: knight });
+        moves.push({
+          from: square,
+          to: leftCapture,
+          capture: true,
+          promotion: queen,
+        });
+        moves.push({
+          from: square,
+          to: leftCapture,
+          capture: true,
+          promotion: rook,
+        });
+        moves.push({
+          from: square,
+          to: leftCapture,
+          capture: true,
+          promotion: bishop,
+        });
+        moves.push({
+          from: square,
+          to: leftCapture,
+          capture: true,
+          promotion: knight,
+        });
       } else moves.push({ from: square, to: leftCapture, capture: true });
     }
 
     const canCapRight = turn === "white" ? square % 8 !== 7 : square % 8 !== 0;
-    const rightCapture = turn === "white" ? ((square - 7) as Square) : ((square + 7) as Square);
+    const rightCapture =
+      turn === "white" ? ((square - 7) as Square) : ((square + 7) as Square);
     const rightCaptureTeam = getTeam(board, rightCapture);
 
-    if (inBounds(rightCapture) && canCapRight && rightCaptureTeam === otherTeam) {
+    if (
+      inBounds(rightCapture) &&
+      canCapRight &&
+      rightCaptureTeam === otherTeam
+    ) {
       const isPromotion = sameRank(square, promotionRank);
       if (isPromotion) {
-        moves.push({ from: square, to: rightCapture, capture: true, promotion: queen });
-        moves.push({ from: square, to: rightCapture, capture: true, promotion: rook });
-        moves.push({ from: square, to: rightCapture, capture: true, promotion: bishop });
-        moves.push({ from: square, to: rightCapture, capture: true, promotion: knight });
+        moves.push({
+          from: square,
+          to: rightCapture,
+          capture: true,
+          promotion: queen,
+        });
+        moves.push({
+          from: square,
+          to: rightCapture,
+          capture: true,
+          promotion: rook,
+        });
+        moves.push({
+          from: square,
+          to: rightCapture,
+          capture: true,
+          promotion: bishop,
+        });
+        moves.push({
+          from: square,
+          to: rightCapture,
+          capture: true,
+          promotion: knight,
+        });
       } else moves.push({ from: square, to: rightCapture, capture: true });
     }
   }
@@ -105,26 +160,48 @@ function getPawnMoves(board: Board, turn: Team, moves: Move[]) {
     const rightOne = (enPassant + 1) as Square;
     const leftOne = (enPassant - 1) as Square;
 
-    const rightTo = (turn === "white" ? enPassant - 8 : enPassant + 8) as Square;
+    const rightTo = (
+      turn === "white" ? enPassant - 8 : enPassant + 8
+    ) as Square;
     const leftTo = (turn === "white" ? enPassant - 8 : enPassant + 8) as Square;
 
-    const currentTurnPawn = turn === "white" ? Pieces.WhitePawn : Pieces.BlackPawn;
+    const currentTurnPawn =
+      turn === "white" ? Pieces.WhitePawn : Pieces.BlackPawn;
 
     // Right en passant
-    if (board.locations[rightOne] === currentTurnPawn && sameRank(board.enPassant, rightOne)) {
-      moves.push({ from: rightOne, to: rightTo, capture: true, enPassantCaptureSquare: enPassant });
+    if (
+      board.locations[rightOne] === currentTurnPawn &&
+      sameRank(board.enPassant, rightOne)
+    ) {
+      moves.push({
+        from: rightOne,
+        to: rightTo,
+        capture: true,
+        enPassantCaptureSquare: enPassant,
+      });
     }
 
     // Left en passant
-    if (board.locations[leftOne] === currentTurnPawn && sameRank(board.enPassant, leftOne)) {
-      moves.push({ from: leftOne, to: leftTo, capture: true, enPassantCaptureSquare: enPassant });
+    if (
+      board.locations[leftOne] === currentTurnPawn &&
+      sameRank(board.enPassant, leftOne)
+    ) {
+      moves.push({
+        from: leftOne,
+        to: leftTo,
+        capture: true,
+        enPassantCaptureSquare: enPassant,
+      });
     }
   }
 }
 
 // ------------------ Knight ------------------
 function getKnightMoves(board: Board, turn: Team, moves: Move[]) {
-  const knightSquares = turn === "white" ? board.pieces[Pieces.WhiteKnight] : board.pieces[Pieces.BlackKnight];
+  const knightSquares =
+    turn === "white"
+      ? board.pieces[Pieces.WhiteKnight]
+      : board.pieces[Pieces.BlackKnight];
 
   for (const square of knightSquares) {
     for (const toSquare of KNIGHT_MOVES[square]) {
@@ -233,8 +310,14 @@ function getRookMoves(board: Board, turn: Team, moves: Move[]) {
 function getBishopMoves(board: Board, turn: Team, moves: Move[]) {
   const bishopSquares =
     turn === "white"
-      ? [...board.pieces[Pieces.WhiteBishop], ...board.pieces[Pieces.WhiteQueen]]
-      : [...board.pieces[Pieces.BlackBishop], ...board.pieces[Pieces.BlackQueen]];
+      ? [
+          ...board.pieces[Pieces.WhiteBishop],
+          ...board.pieces[Pieces.WhiteQueen],
+        ]
+      : [
+          ...board.pieces[Pieces.BlackBishop],
+          ...board.pieces[Pieces.BlackQueen],
+        ];
 
   for (const square of bishopSquares) {
     // North East
@@ -337,7 +420,10 @@ function getBishopMoves(board: Board, turn: Team, moves: Move[]) {
 
 // ------------------ King ------------------
 function getKingMoves(board: Board, turn: Team, moves: Move[]) {
-  const kingSquares = turn === "white" ? board.pieces[Pieces.WhiteKing] : board.pieces[Pieces.BlackKing];
+  const kingSquares =
+    turn === "white"
+      ? board.pieces[Pieces.WhiteKing]
+      : board.pieces[Pieces.BlackKing];
 
   for (const square of kingSquares) {
     for (const toSquare of KING_MOVES[square]) {
@@ -371,22 +457,33 @@ function getKingMoves(board: Board, turn: Team, moves: Move[]) {
         else if (board.locations[Squares.g1] !== Pieces.none) canCastle = false;
 
         // Add the move
-        if (canCastle) moves.push({ from: square, to: Squares.g1, castleRookFrom: Squares.h1 });
+        if (canCastle)
+          moves.push({
+            from: square,
+            to: Squares.g1,
+            castleRookFrom: Squares.h1,
+          });
       }
 
       // Check rights
       if (board.castle.whiteQueen) {
         let canCastle = true;
 
-        if (squareAttacked(board, Squares.b1, "black")) canCastle = false;
-        else if (squareAttacked(board, Squares.c1, "black")) canCastle = false;
+        // You can castle if B-file is attacked because it doesn't attack a square the king moves through
+        if (squareAttacked(board, Squares.c1, "black")) canCastle = false;
+        else if (squareAttacked(board, Squares.d1, "black")) canCastle = false;
 
         // Make sure the squares aren't occupied
         if (board.locations[Squares.b1] !== Pieces.none) canCastle = false;
         else if (board.locations[Squares.c1] !== Pieces.none) canCastle = false;
         else if (board.locations[Squares.d1] !== Pieces.none) canCastle = false;
 
-        if (canCastle) moves.push({ from: square, to: Squares.c1, castleRookFrom: Squares.a1 });
+        if (canCastle)
+          moves.push({
+            from: square,
+            to: Squares.c1,
+            castleRookFrom: Squares.a1,
+          });
       }
     }
 
@@ -406,22 +503,32 @@ function getKingMoves(board: Board, turn: Team, moves: Move[]) {
         else if (board.locations[Squares.g8] !== Pieces.none) canCastle = false;
 
         // Add the move
-        if (canCastle) moves.push({ from: square, to: Squares.g8, castleRookFrom: Squares.h8 });
+        if (canCastle)
+          moves.push({
+            from: square,
+            to: Squares.g8,
+            castleRookFrom: Squares.h8,
+          });
       }
 
       // Check rights
       if (board.castle.blackQueen) {
         let canCastle = true;
 
-        if (squareAttacked(board, Squares.b8, "white")) canCastle = false;
-        else if (squareAttacked(board, Squares.c8, "white")) canCastle = false;
+        if (squareAttacked(board, Squares.c8, "white")) canCastle = false;
+        else if (squareAttacked(board, Squares.d8, "white")) canCastle = false;
 
         // Make sure the squares aren't occupied
         if (board.locations[Squares.b8] !== Pieces.none) canCastle = false;
         else if (board.locations[Squares.c8] !== Pieces.none) canCastle = false;
         else if (board.locations[Squares.d8] !== Pieces.none) canCastle = false;
 
-        if (canCastle) moves.push({ from: square, to: Squares.c8, castleRookFrom: Squares.a8 });
+        if (canCastle)
+          moves.push({
+            from: square,
+            to: Squares.c8,
+            castleRookFrom: Squares.a8,
+          });
       }
     }
   }
