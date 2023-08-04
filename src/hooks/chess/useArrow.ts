@@ -6,11 +6,10 @@ import useHideContextMenu from "../useHideContextMenu";
 
 type Props = {
   boardRef: ReactRef<HTMLDivElement>;
-  flipped: boolean;
   availableMoves: Move[];
 };
 
-export default function useArrow({ boardRef, flipped, availableMoves }: Props) {
+export default function useArrow({ boardRef, availableMoves }: Props) {
   const startPositionRef = useRef<Position | null>(null);
   const [arrowPaths, setArrowPaths] = useState<
     { from: Position; to: Position }[]
@@ -29,7 +28,9 @@ export default function useArrow({ boardRef, flipped, availableMoves }: Props) {
       if (e.button === leftClick) setArrowPaths([]); // Reset the arrow paths when the user clicks the left mouse button
       if (e.button !== rightClick) return;
 
-      const position = getBoardPosition(e, flipped, boardRef);
+      // Flipped we will always set to false because it's not board relative
+      const position = getBoardPosition(e, false, boardRef);
+      console.log(position);
       if (!position) return;
 
       const { x, y } = position;
@@ -46,7 +47,7 @@ export default function useArrow({ boardRef, flipped, availableMoves }: Props) {
       if (!startPositionRef.current) return;
 
       // Get the x and y on the board
-      const position = getBoardPosition(e, flipped, boardRef);
+      const position = getBoardPosition(e, false, boardRef);
       if (!position) return;
 
       // Don't allow arrows to be drawn to the same square

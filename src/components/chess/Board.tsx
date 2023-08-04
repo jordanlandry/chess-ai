@@ -3,15 +3,15 @@ import { StylesContext } from "../../App";
 import { boardColors } from "../../boardStyles";
 import { squareNamesForward } from "../../constants/squares";
 import { Move } from "../../engine/types";
-import useArrow from "../../hooks/chess/useArrow";
 import useIsRefDefined from "../../hooks/useIsRefDefined";
 import { Position, ReactRef, ReadableBoard, SetState } from "../../types";
 import comparePositions from "../../util/comparePositions";
 import { isLightSquare } from "../../util/isLightSquare";
 import Svg from "../Svg";
 import "../styles/board.scss";
-import Arrow from "./Arrow";
 import Piece from "./Piece";
+import Arrow from "./Arrow";
+import useArrow from "../../hooks/chess/useArrow";
 
 type Props = {
   board: ReadableBoard;
@@ -51,8 +51,7 @@ export default function Board({
     backgroundColor: isLightSquare(squareName) ? style.light : style.dark,
   });
 
-  // -------------------- ARROWS --------------------
-  const arrowPaths = useArrow({ boardRef, flipped, availableMoves });
+  const arrowPaths = useArrow({ boardRef, availableMoves });
 
   // -------------------- RENDER --------------------
   // It's a lot cleaner if I define the squareElements here, rather than in the return statement

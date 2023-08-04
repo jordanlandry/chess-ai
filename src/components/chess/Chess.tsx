@@ -5,9 +5,9 @@ import useCheckPosition from "../../hooks/chess/useCheckPosition";
 import useLastMovePosition from "../../hooks/chess/useLastMovePosition";
 import usePieceMovement from "../../hooks/chess/usePieceMovement";
 import { Position, ReactRef, ReadableBoard, SetState, Team } from "../../types";
+import Settings from "../pages/Settings";
 import Board from "./Board";
 import PromotionTab from "./PromotionTab";
-import Settings from "../pages/Settings";
 
 type Props = {
   board: ReadableBoard;
@@ -25,7 +25,18 @@ type Props = {
 // The reason board and setBoard aren't context (Even though they nest down to this component's child)
 // is because if I have multiple different pages calling this component, it will be a pain to create
 // custom contexts for each page. Instead, I can just pass the board and setBoard as props.
-export default function Chess({ board, setBoard, onPieceMove, pieceRefs, boardRef, aiTeam, moves, setMoves, running, flipped }: Props) {
+export default function Chess({
+  board,
+  setBoard,
+  onPieceMove,
+  pieceRefs,
+  boardRef,
+  aiTeam,
+  moves,
+  setMoves,
+  running,
+  flipped,
+}: Props) {
   const [promotionMove, setPromotionMove] = useState<string>(""); // The UCI move set from makeMove when you are on a promotion square
   const onPromotion = (piece: string) => {
     setBoard(handleMakePromotionMove(board, promotionMove, piece));
@@ -40,7 +51,9 @@ export default function Chess({ board, setBoard, onPieceMove, pieceRefs, boardRe
 
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
 
-  const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
+  const [selectedPosition, setSelectedPosition] = useState<Position | null>(
+    null
+  );
   const { lastMoveFrom, lastMoveTo } = useLastMovePosition(board, moves);
 
   const availableMoves = useAvailableMoves({ board, selectedPosition });
@@ -77,7 +90,11 @@ export default function Chess({ board, setBoard, onPieceMove, pieceRefs, boardRe
         setIsSettingsOpened={setIsSettingsOpened}
       />
 
-      <PromotionTab isPromoting={promotionMove !== ""} onSelect={onPromotion} team={board.turn} />
+      <PromotionTab
+        isPromoting={promotionMove !== ""}
+        onSelect={onPromotion}
+        team={board.turn}
+      />
 
       <Settings isOpen={isSettingsOpened} setIsOpen={setIsSettingsOpened} />
     </>
